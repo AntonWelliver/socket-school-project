@@ -1,1 +1,1 @@
-# Socket Projekt
+# Chat App Socket School Project
