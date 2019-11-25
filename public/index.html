@@ -5,14 +5,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <link rel="stylesheet" type="text/css" href="style.css" />
-        <title>Socket Project</title>
+        <script
+            defer
+            src="http://localhost:3000/socket.io/socket.io.js"
+        ></script>
+        <script defer src="script.js"></script>
+
+        <title>Chat</title>
     </head>
     <body>
         <div>
             <div class="testStyle">
-                <u><h1>School Socket Project</h1></u>
+                <u><h1>Chat app</h1></u>
+            </div>
+            <div class="container">
+                <div id="message-container"></div>
+                <form id="send-container">
+                    <input type="text" id="message-input" />
+                    <button type="submit" id="send-button">Send</button>
+                </form>
             </div>
         </div>
-        <script src="script.js"></script>
     </body>
 </html>

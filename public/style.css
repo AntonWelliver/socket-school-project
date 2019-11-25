@@ -1,4 +1,18 @@
-.testStyle {
-    text-align: center;
-    padding: 10px;
+body {
+    display: flex;
+    justify-content: center;
+}
+
+#message-container {
+    width: 80%;
+    max-width: 1200px;
+}
+
+#message-container div {
+    background-color: white;
+    padding: 5px;
+}
+
+#message-container div:nth-child(2n) {
+    background-color: grey;
 }
