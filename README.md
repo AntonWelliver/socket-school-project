@@ -1,1 +1,1 @@
-# socket-school-project
+# Socket Projekt
