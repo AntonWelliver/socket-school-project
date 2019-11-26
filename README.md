@@ -1,6 +1,6 @@
 # Chat App Socket School Project
 
-## Socket chatt med Web API integration
+#### Socket chatt med Web API integration
 
 I den här inlämningen skall ni skapa en chatt-baserad app som låter användare chatta
 med med varandra i realtid. Kommunikationen skall sättas upp och göras med socket.io.
