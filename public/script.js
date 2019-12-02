@@ -3,7 +3,7 @@ const messageForm = document.getElementById("send-container");
 const messageContainer = document.getElementById("message-container");
 const messageInput = document.getElementById("message-input");
 
-const name = prompt("What is your name?");
+const name = "Anton";
 appendMessage("You joined");
 socket.emit("new-user", name);
 
