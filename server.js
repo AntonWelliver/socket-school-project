@@ -1,10 +1,35 @@
-const io = require("socket.io")(3000);
+const express = require("express");
+const app = express();
+const server = require("http").Server(app);
+const io = require("socket.io")(server);
 const users = [];
+
+app.set("views", "./views");
+app.set("view engine", "ejs");
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
+
+app.get("/", (req, res) => {
+
+    let chatRoomList = ["ett-chatt-rum"];
+    /*     let chatRoomList = chatRooms.getChatRoomsList(); */
+
+    res.render("index", { chatRooms: chatRoomList });
+})
+
+app.get("/:chatRoom", (req, res) => {
+
+
+    res.render("chat", { chatRoomName: req.params.chatRoom });
+});
+
+server.listen(3000);
 
 io.on("connection", socket => {
     console.log("connected");
 
     socket.on("new-user", name => {
+        console.log(`new-user ${name}`);
         users[socket.id] = name;
         socket.broadcast.emit("user-connected", name);
     });
@@ -21,3 +46,5 @@ io.on("connection", socket => {
         delete users[socket.id];
     });
 });
+
+console.log("Server Started")
