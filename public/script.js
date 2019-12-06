@@ -1,5 +1,3 @@
-import { strict } from "assert";
-
 const socket = io("http://localhost:3000");
 const messageForm = document.getElementById("send-container");
 const messageContainer = document.getElementById("message-container");
@@ -24,6 +22,12 @@ messageForm.addEventListener("submit", e => {
 
     messageInput.value = "";
 })
+
+function parseMessage(messageData) {
+    // FontAwesome
+    const SMILE = `<i class="far fa-smile-wink"></i>`;
+    const LIKE = String.fromCodePoint(0x1f44d);
+}
 
 function appendMessage(messageData) {
     const messageElement = document.createElement("div");
