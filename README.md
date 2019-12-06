@@ -9,4 +9,6 @@ A chat-based app that lets users chat with each other in real time. The communic
 - It's visible to others when someone writes
 - It's possible to join password protected rooms
 
+What is needed for you to run this project is that you run npm install in the terminal and then you start the project with the command node index.js. I have used localhost port: 3000.
+
 https://github.com/AntonWelliver/socket-school-project
