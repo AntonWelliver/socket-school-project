@@ -3,9 +3,28 @@ const messageForm = document.getElementById("send-container");
 const messageContainer = document.getElementById("message-container");
 const messageInput = document.getElementById("message-input");
 
-const name = "Anton";
-appendMessage("You joined");
-socket.emit("new-user", name);
+const messageBox = document.getElementById("message-box");
+const chatSignOn = document.getElementById("chat-sign-on");
+const signOnBtn = document.getElementById("sign-on-button");
+const nameInput = document.getElementById("name-input");
+const userInfoBox = document.getElementById("user-info-box");
+
+if (chatSignOn != null) {
+
+    userInfoBox.classList.remove("d-none");
+    messageBox.classList.add("d-none");
+
+    signOnBtn.addEventListener("click", e => {
+        e.preventDefault();
+        const name = nameInput.value;
+
+        userInfoBox.classList.add("d-none");
+        messageBox.classList.remove("d-none");
+
+        appendMessage("You joined");
+        socket.emit("new-user", name);
+    })
+}
 
 socket.on("chat-message", data => {
     appendMessage(`${data.name}: ${data.message}`);
