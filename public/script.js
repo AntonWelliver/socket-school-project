@@ -23,15 +23,54 @@ messageForm.addEventListener("submit", e => {
     messageInput.value = "";
 })
 
-function parseMessage(messageData) {
+function parseMessage(message) {
     // FontAwesome
     const SMILE = `<i class="far fa-smile-wink"></i>`;
+    const COFFEE = `<i class="fas fa-coffee"></i>`;
+
+    // Emoji
     const LIKE = String.fromCodePoint(0x1f44d);
+    const NO_LIKE = String.fromCodePoint(0x1f44e);
+    const GRIN = String.fromCodePoint(0x1f601);
+    const BURGER = String.fromCodePoint(0x1f354);
+
+    // Turns the messageData String into an array of strings with one word each
+    messageArray = message.split(" ");
+
+    let newMessage = "";
+
+    messageArray.forEach(element => {
+        switch (element) {
+            case "/smile":
+                newMessage += `${SMILE}`;
+                break;
+            case "/coffee":
+                newMessage += `${COFFEE}`;
+                break;
+            case "/like":
+                newMessage += LIKE;
+                break;
+            case "/nolike":
+                newMessage += NO_LIKE;
+                break;
+            case "/grin":
+                newMessage += GRIN;
+                break;
+            case "/burger":
+                newMessage += BURGER;
+                break;
+            default:
+                newMessage += element;
+        }
+        newMessage += " ";
+    });
+    return newMessage;
 }
 
-function appendMessage(messageData) {
+function appendMessage(message) {
     const messageElement = document.createElement("div");
-    messageElement.innerText = messageData;
+    let newMessage = parseMessage(message);
+    messageElement.innerHTML = newMessage;
     messageContainer.append(messageElement);
 }
 
