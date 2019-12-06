@@ -26,22 +26,54 @@
     <body>
         <div>
             <div>
-                <u><h1>Chat</h1></u>
+                <u><h1 class="text-center">Chat</h1></u>
             </div>
             <div class="container">
-                <div id="message-container"></div>
-                <form id="send-container">
-                    <input type="text" 
-                        id="message-input" 
-                        data-toggle="tooltip" 
-                        data-html="true" 
-                        title="Commands: Like /like, Dislike /nolike, Wink smiley /smile, Happy Smile/grin, Cup of coffee /coffee, Hamburger /burger" 
-                    />
-                    <button type="submit" id="send-button">Send</button>
-                </form>
-                <a class="btn btn-danger py" id="sign-out-button" href="/"
-                    >Exit</a
-                >
+                <div class="row">
+                    <div class="col-md-12 py-2" id="message-box">
+                        <div id="message-container"></div>
+                        <form id="send-container">
+                            <input
+                                type="text"
+                                id="message-input"
+                                data-toggle="tooltip"
+                                data-html="true"
+                                title="Commands: Like /like, Dislike /nolike, Wink smiley /smile, Happy Smile/grin, Cup of coffee /coffee, Hamburger /burger"
+                            />
+                            <button type="submit" id="send-button">Send</button>
+                            <a
+                                class="btn btn-danger py"
+                                id="sign-out-button"
+                                href="/"
+                                >Back to chatlist</a
+                            >
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" id="user-info-box">
+                        <form id="chat-sign-on">
+                            <div class="form-group row">
+                                <div class="col-md-6">
+                                    <label for="name">Your Name</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="name-input"
+                                        name="name"
+                                    />
+                                </div>
+                            </div>
+                            <button
+                                type="submit"
+                                class="btn btn-primary mx"
+                                id="sign-on-button"
+                            >
+                                Enter Chat
+                            </button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
