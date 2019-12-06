@@ -12,5 +12,6 @@ A chat-based app that lets users chat with each other in real time. The communic
 
 - A working chat where you can type a command "/" to perform operations which integrates with third party systems.
 - You can choose a nickname
-- It's visible to others when someone writes
-- It's possible to join password protected rooms
+- It's visible to others when someone connects or disconnects
+- It's visible to others who sent the message
+- It's possible to include commands to show emojis and other characters (available commands displayed in tooltip on the message field)
