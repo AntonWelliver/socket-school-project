@@ -1,6 +1,7 @@
 # Chat App Socket School Project
 
-What is needed for you to run this project is that you run npm install in the terminal and then you start the project with the command #### node server.js.
+What is needed for you to run this project is that you run npm install in the terminal and then you start the project with the command 
+#### node server.js.
 I have used localhost port: 3000.
 
 https://github.com/AntonWelliver/socket-school-project
