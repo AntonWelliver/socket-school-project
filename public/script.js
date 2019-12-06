@@ -1,3 +1,5 @@
+import { strict } from "assert";
+
 const socket = io("http://localhost:3000");
 const messageForm = document.getElementById("send-container");
 const messageContainer = document.getElementById("message-container");
@@ -14,18 +16,18 @@ socket.on("chat-message", data => {
 messageForm.addEventListener("submit", e => {
     e.preventDefault();
 
-    const message = messageInput.value;
+    const messageInputInformation = messageInput.value;
 
-    appendMessage(`You: ${message}`);
+    appendMessage(`You: ${messageInputInformation}`);
 
-    socket.emit("send-chat-message", message);
+    socket.emit("send-chat-message", messageInputInformation);
 
     messageInput.value = "";
 })
 
-function appendMessage(message) {
+function appendMessage(messageData) {
     const messageElement = document.createElement("div");
-    messageElement.innerText = message;
+    messageElement.innerText = messageData;
     messageContainer.append(messageElement);
 }
 

@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
 
-    let chatRoomList = ["ett-chatt-rum"];
+    let chatRoomList = ["Chat"];
     /*     let chatRoomList = chatRooms.getChatRoomsList(); */
 
     res.render("index", { chatRooms: chatRoomList });
@@ -34,9 +34,9 @@ io.on("connection", socket => {
         socket.broadcast.emit("user-connected", name);
     });
 
-    socket.on("send-chat-message", message => {
+    socket.on("send-chat-message", messageInputInformation => {
         socket.broadcast.emit("chat-message", {
-            message: message,
+            message: messageInputInformation,
             name: users[socket.id]
         })
     });
