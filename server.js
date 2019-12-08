@@ -9,12 +9,105 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 
+class ChatRoom {
+
+    constructor(roomname, password = "") {
+        this.roomname = roomname;
+        this.password = password;
+        this.users = [];
+    }
+
+    addUser(socketId, username) {
+        this.users.push({ socketId: socketId, username: username });
+    }
+
+    removeUser(socketId) {
+        let userIndex = 0;
+        let userFound = false;
+
+        this.users.forEach((user, index) => {
+            if (user.socketId === socketId) {
+                userFound = true;
+                userIndex = index;
+            }
+
+            if (userFound === true) {
+                this.users.splice(userIndex, 1);
+            }
+        });
+    }
+
+    getUser(socketId) {
+        let username = "";
+
+        this.users.forEach(user => {
+            if (user.socketId === socketId) {
+                username = user.username;
+            }
+        });
+        return username;
+    }
+
+    userIsInList(socketId) {
+        let isInList = false;
+
+        this.users.forEach(user => {
+            if (user.socketId === socketId) {
+                isInList = true;
+            }
+        });
+        return isInList;
+    }
+
+    printOut() {
+        console.log(`room: ${this.roomname} password: ${this.password}`);
+        this.users.forEach((user, index) => {
+            console.log(`User: ${index} ${user.username} ${user.socketId}`);
+        });
+    }
+}
+
+class ChatRooms {
+    constructor() {
+        this.chatRoomList = [];
+    }
+    addChatroom(chatRoomName) {
+        let room = new ChatRoom(chatRoomName);
+        this.chatRoomList.push(room);
+    }
+    getChatRoomsList() {
+        let roomList = [];
+        this.chatRoomList.forEach(room => {
+            console.log(room.roomname);
+            roomList.push(room.roomname);
+        });
+        return roomList;
+    }
+    printOut() {
+        console.log("Chatrooms:");
+        this.chatRoomList.forEach(room => {
+            room.printOut();
+        });
+    }
+}
+
+const rooms = new ChatRooms();
+
 app.get("/", (req, res) => {
 
-    let chatRoomList = ["Chat"];
-    /*     let chatRoomList = chatRooms.getChatRoomsList(); */
+    /* let chatRoomList = ["Chatroom"]; */
+    let chatRoomList = rooms.getChatRoomsList();
+    console.log(chatRoomList);
 
     res.render("index", { chatRooms: chatRoomList });
+})
+
+app.post("/room", (req, res) => {
+    console.log(`provided room: ${req.body.room}`);
+
+    rooms.addChatroom(req.body.room);
+    rooms.printOut();
+    res.redirect(req.body.room);
 })
 
 app.get("/:chatRoom", (req, res) => {
