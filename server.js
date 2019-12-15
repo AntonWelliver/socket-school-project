@@ -83,6 +83,15 @@ class ChatRooms {
         });
         return roomList;
     }
+    checkExistingChatroom(chatRoomName) {
+        let roomFound = false;
+        this.chatRoomList.forEach(room => {
+            if (room.roomname === chatRoomName) {
+                roomFound = true;
+            }
+        });
+        return roomFound;
+    }
     printOut() {
         console.log("Chatrooms:");
         this.chatRoomList.forEach(room => {
@@ -95,7 +104,6 @@ const rooms = new ChatRooms();
 
 app.get("/", (req, res) => {
 
-    /* let chatRoomList = ["Chatroom"]; */
     let chatRoomList = rooms.getChatRoomsList();
     console.log(chatRoomList);
 
@@ -105,16 +113,27 @@ app.get("/", (req, res) => {
 app.post("/room", (req, res) => {
     console.log(`provided room: ${req.body.room}`);
 
-    rooms.addChatroom(req.body.room);
+    if (rooms.checkExistingChatroom(req.body.room) === false) {
+        rooms.addChatroom(req.body.room);
+    } else {
+        return res.redirect("/");
+    }
     rooms.printOut();
     res.redirect(req.body.room);
-})
+});
 
 app.get("/:chatRoom", (req, res) => {
 
 
     res.render("chat", { chatRoomName: req.params.chatRoom });
 });
+
+app.post("/:chatRoom", (req, res) => {
+    console.log(`${req.params.chatRoom}`);
+    console.log(`Delete ${req.body.deleteButton}`);
+
+    return res.redirect(`/`);
+})
 
 server.listen(3000);
 
