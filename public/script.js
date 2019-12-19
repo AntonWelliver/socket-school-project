@@ -21,8 +21,8 @@ if (chatSignOn != null) {
         userInfoBox.classList.add("d-none");
         messageBox.classList.remove("d-none");
 
-        appendMessage("You joined");
-        socket.emit("new-user", name);
+        appendMessage(`You joined ${chatRoomName}`);
+        socket.emit("new-user", chatRoomName, name);
     })
 }
 
@@ -37,7 +37,7 @@ messageForm.addEventListener("submit", e => {
 
     appendMessage(`You: ${messageInputInformation}`);
 
-    socket.emit("send-chat-message", messageInputInformation);
+    socket.emit("send-chat-message", chatRoomName, messageInputInformation);
 
     messageInput.value = "";
 })
