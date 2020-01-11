@@ -10,7 +10,6 @@ const chatSignOn = document.getElementById("chat-sign-on");
 const signOnBtn = document.getElementById("sign-on-button");
 const nameInput = document.getElementById("name-input");
 const userInfoBox = document.getElementById("user-info-box");
-const test = document.getElementById("test");
 
 if (chatSignOn != null) {
 
@@ -59,14 +58,17 @@ messageInput.addEventListener("input", e => {
 dropdownMenu.addEventListener("click", e => {
     e.preventDefault();
 
-    getGIF();
+    messageInput.value += "smile ";
+    clearDropdown();
+});
+
+messageInput.addEventListener("click", e => {
+    e.preventDefault();
+
     clearDropdown();
 });
 
 function parseMessage(message) {
-    // FontAwesome
-    const SMILE = `<i class="far fa-smile-wink"></i>`;
-
     // Turns the messageData String into an array of strings with one word each
     messageArray = message.split(" ");
 
@@ -75,7 +77,7 @@ function parseMessage(message) {
     messageArray.forEach(element => {
         switch (element) {
             case "/smile":
-                newMessage += `${SMILE}`;
+                getGIF();
                 break;
             default:
                 newMessage += element;
@@ -115,7 +117,6 @@ function getGIF() {
     fetch(url)
         .then(response => response.json())
         .then(content => {
-            console.log(content.data);
             let fig = document.createElement("figure");
             let img = document.createElement("img");
             img.src = content.data[0].images.downsized.url;
