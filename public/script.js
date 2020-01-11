@@ -2,12 +2,15 @@ const socket = io("http://localhost:3000");
 const messageForm = document.getElementById("send-container");
 const messageContainer = document.getElementById("message-container");
 const messageInput = document.getElementById("message-input");
+const sendContainer = document.getElementById("send-container");
+const dropdownMenu = document.getElementById("dropdown-menu");
 
 const messageBox = document.getElementById("message-box");
 const chatSignOn = document.getElementById("chat-sign-on");
 const signOnBtn = document.getElementById("sign-on-button");
 const nameInput = document.getElementById("name-input");
 const userInfoBox = document.getElementById("user-info-box");
+const test = document.getElementById("test");
 
 if (chatSignOn != null) {
 
@@ -40,18 +43,29 @@ messageForm.addEventListener("submit", e => {
     socket.emit("send-chat-message", chatRoomName, messageInputInformation);
 
     messageInput.value = "";
-})
+});
+
+messageInput.addEventListener("input", e => {
+    e.preventDefault();
+
+    let inputLength = messageInput.value.length;
+    let lastChar = messageInput.value[inputLength - 1];
+
+    if (lastChar === "/") {
+        dropdownInput();
+    }
+});
+
+dropdownMenu.addEventListener("click", e => {
+    e.preventDefault();
+
+    getGIF();
+    clearDropdown();
+});
 
 function parseMessage(message) {
     // FontAwesome
     const SMILE = `<i class="far fa-smile-wink"></i>`;
-    const COFFEE = `<i class="fas fa-coffee"></i>`;
-
-    // Emoji
-    const LIKE = String.fromCodePoint(0x1f44d);
-    const NO_LIKE = String.fromCodePoint(0x1f44e);
-    const GRIN = String.fromCodePoint(0x1f601);
-    const BURGER = String.fromCodePoint(0x1f354);
 
     // Turns the messageData String into an array of strings with one word each
     messageArray = message.split(" ");
@@ -62,21 +76,6 @@ function parseMessage(message) {
         switch (element) {
             case "/smile":
                 newMessage += `${SMILE}`;
-                break;
-            case "/coffee":
-                newMessage += `${COFFEE}`;
-                break;
-            case "/like":
-                newMessage += LIKE;
-                break;
-            case "/nolike":
-                newMessage += NO_LIKE;
-                break;
-            case "/grin":
-                newMessage += GRIN;
-                break;
-            case "/burger":
-                newMessage += BURGER;
                 break;
             default:
                 newMessage += element;
@@ -91,6 +90,42 @@ function appendMessage(message) {
     let newMessage = parseMessage(message);
     messageElement.innerHTML = newMessage;
     messageContainer.append(messageElement);
+}
+
+function dropdownInput() {
+    let output = "";
+
+    output += `<a class="dropdown-item" href="#">${"/smile"}</a>`;
+
+    dropdownMenu.innerHTML = output;
+    dropdownMenu.classList.add("show");
+}
+
+function clearDropdown() {
+    let output = "";
+
+    dropdownMenu.innerHTML = output;
+    dropdownMenu.classList.remove("show");
+}
+
+function getGIF() {
+    const apiKey = "ww7HhGCmnkyQoReh1CdcmQA6Ld82y3Fl";
+    let url = `http://api.giphy.com/v1/gifs/search?q=smiley&api_key=${apiKey}&limit=1`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(content => {
+            console.log(content.data);
+            let fig = document.createElement("figure");
+            let img = document.createElement("img");
+            img.src = content.data[0].images.downsized.url;
+            img.alt = content.data[0].title;
+            fig.appendChild(img);
+            messageContainer.append(fig);
+        })
+        .catch(err => {
+            console.log(err);
+        })
 }
 
 socket.on("user-connected", name => {

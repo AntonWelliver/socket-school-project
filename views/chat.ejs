@@ -36,10 +36,9 @@
                             <input
                                 type="text"
                                 id="message-input"
-                                data-toggle="tooltip"
-                                data-html="true"
-                                title="Commands: Like /like, Dislike /nolike, Wink smiley /smile, Happy Smile/grin, Cup of coffee /coffee, Hamburger /burger"
+                                autocomplete="off"
                             />
+                            <div class="dropdown-menu" id="dropdown-menu"></div>
                             <button type="submit" id="send-button">Send</button>
                             <a
                                 class="btn btn-danger py"
@@ -48,6 +47,7 @@
                                 >Back to chatlist</a
                             >
                         </form>
+                        <div id="test"></div>
                     </div>
                 </div>
                 <div class="row d-flex justify-content-center">
