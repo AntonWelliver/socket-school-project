@@ -53,6 +53,9 @@ messageInput.addEventListener("input", e => {
     if (lastChar === "/") {
         dropdownInput();
     }
+    if (lastChar === " ") {
+        clearDropdown();
+    }
 });
 
 dropdownMenu.addEventListener("click", e => {
